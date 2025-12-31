@@ -25,9 +25,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.dba.scoreboard.PlayerTotals
@@ -145,36 +144,97 @@ fun HistoryScreenContent(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        LazyColumn (
-            modifier = Modifier.fillMaxWidth()
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.5f)   // bottom half of the screen
         ) {
-            items(scores) { score ->
-                val formattedDate = simpleDateFormat.format(score.timestamp)
-                Text(
-                    buildAnnotatedString {
-                        withStyle(
-                            SpanStyle(
-                                fontSize = 16.sp,
-                                color = MaterialTheme.colorScheme.secondaryContainer
-                            )
-                        ) {
-                            append("$formattedDate")
-                        }
-                        withStyle(
-                            SpanStyle(
-                                fontSize = 24.sp,
-                                color = MaterialTheme.colorScheme.secondaryContainer
-                            )
-                        ) {
-                            append("        ${score.p1Wins}     ${score.p2Wins}     ${score.p3Wins}  ")
-                        }
+
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                item {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 4.dp, horizontal = 12.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = "Date",
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.weight(1f)
+                        )
+                        Text(
+                            text = players[0].name,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.weight(0.4f),
+                            textAlign = TextAlign.Center
+                        )
+                        Text(
+                            text = players[1].name,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.weight(0.4f),
+                            textAlign = TextAlign.Center
+                        )
+                        Text(
+                            text = players[2].name,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.weight(0.4f),
+                            textAlign = TextAlign.Center
+                        )
                     }
-                )
+                }
+
+                items(scores) { score ->
+                    val formattedDate = simpleDateFormat.format(score.timestamp)
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 2.dp, horizontal = 12.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        // Date column
+                        Text(
+                            text = formattedDate,
+                            fontSize = 16.sp,
+                            color = MaterialTheme.colorScheme.secondaryContainer,
+                            modifier = Modifier.weight(1f)
+                        )
+
+                        // Score columns
+                        Text(
+                            text = score.p1Wins.toString(),
+                            fontSize = 20.sp,
+                            color = MaterialTheme.colorScheme.secondaryContainer,
+                            modifier = Modifier.weight(0.4f),
+                            textAlign = TextAlign.Center
+                        )
+
+                        Text(
+                            text = score.p2Wins.toString(),
+                            fontSize = 20.sp,
+                            color = MaterialTheme.colorScheme.secondaryContainer,
+                            modifier = Modifier.weight(0.4f),
+                            textAlign = TextAlign.Center
+                        )
+
+                        Text(
+                            text = score.p3Wins.toString(),
+                            fontSize = 20.sp,
+                            color = MaterialTheme.colorScheme.secondaryContainer,
+                            modifier = Modifier.weight(0.4f),
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                }
             }
         }
-
-
-
-
     }
 }
