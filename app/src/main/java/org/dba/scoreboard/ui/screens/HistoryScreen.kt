@@ -11,11 +11,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,6 +38,7 @@ import org.dba.scoreboard.R
 import org.dba.scoreboard.ScoreViewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
+
 
 @Composable
 fun HistoryScreenContent(
@@ -108,7 +113,7 @@ fun HistoryScreenContent(
                         )
                         {
                             Image(
-                                painter = painterResource(id = resourceId),
+                                painter = painterResource(id = resourceId as Int),
                                 contentDescription = null,
                                 modifier = Modifier.size(72.dp)
                             )
@@ -139,6 +144,12 @@ fun HistoryScreenContent(
 
             ) {
                 Text("Home")
+                Spacer(Modifier.width(8.dp))
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                    contentDescription = "Arrow"
+                )
+
             }
         }
 
