@@ -4,7 +4,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -63,9 +62,9 @@ class ScoreViewModel @Inject constructor(
         scores[index] = newScore
     }
 
-    fun saveScores(player1: Int, player2: Int, player3: Int) {
+    fun saveScores(p1: Int, p2: Int, p3: Int) {
         viewModelScope.launch {
-            repository.saveScores(player1, player2, player3)
+            repository.saveScores(p1, p2, p3)
         }
     }
 }
