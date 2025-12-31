@@ -10,6 +10,6 @@ interface ScoreDao {
     @Insert
     suspend fun insert(scoreEntry: ScoreEntry)
 
-    @Query("SELECT * FROM scores ORDER BY timestamp DESC")
+    @Query("SELECT * FROM history ORDER BY timestamp DESC")
     fun getAllScores(): Flow<List<ScoreEntry>>
 }

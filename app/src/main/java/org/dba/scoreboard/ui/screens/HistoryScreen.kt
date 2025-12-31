@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -54,11 +55,13 @@ fun HistoryScreenContent(
         players[2].name to R.drawable.player2
     )
     val scores by viewModel.allScores.collectAsState(initial = emptyList())
-    val totals by viewModel.playerTotals.collectAsState(initial = PlayerTotals(0, 0, 0))
-
-
+    val totals by viewModel.playerTotals.collectAsState(initial = PlayerTotals(0, 0, 0, 0, 0, 0))
 
     val simpleDateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
+
+    val headStyle = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center )
+    val winsStyle = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center, color = MaterialTheme.colorScheme.secondaryContainer )
+    val pointsStyle = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center, color = MaterialTheme.colorScheme.secondaryContainer )
 
     Column(
         modifier = Modifier
@@ -87,7 +90,8 @@ fun HistoryScreenContent(
                     contentColor = MaterialTheme.colorScheme.error
                 ),
                 onClick = {
-                    viewModel.saveScores(players[0].wins, players[1].wins, players[2].wins)
+                    viewModel.saveScores(players[0].wins, players[1].wins, players[2].wins,
+                        players[0].points, players[1].points, players[2].points)
                 }
             ) {
                 Text("Save Results")
@@ -95,7 +99,8 @@ fun HistoryScreenContent(
         }
         Spacer(modifier = Modifier.height(32.dp))
 
-        val wins = listOf(totals.p1Total, totals.p2Total, totals.p3Total)
+        val wins = listOf(totals.w1Total, totals.w2Total, totals.w3Total)
+        val points = listOf(totals.p1Total, totals.p2Total, totals.p3Total)
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
@@ -126,6 +131,12 @@ fun HistoryScreenContent(
                         text = wins[index].toString(),
                         fontSize = 36.sp,
                         color = MaterialTheme.colorScheme.secondaryContainer
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = points[index].toString(),
+                        fontSize = 24.sp,
+                        color = MaterialTheme.colorScheme.errorContainer
                     )
                 }
             }
@@ -172,35 +183,43 @@ fun HistoryScreenContent(
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(vertical = 4.dp, horizontal = 12.dp),
+                                .padding(vertical = 4.dp, horizontal = 8.dp),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             Text(
                                 text = "Date",
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold,
+                                style = headStyle,
                                 modifier = Modifier.weight(1f)
                             )
                             Text(
                                 text = players[0].name,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold,
                                 modifier = Modifier.weight(0.4f),
-                                textAlign = TextAlign.Center
+                                style = headStyle
                             )
                             Text(
                                 text = players[1].name,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold,
                                 modifier = Modifier.weight(0.4f),
-                                textAlign = TextAlign.Center
+                                style = headStyle
                             )
                             Text(
                                 text = players[2].name,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold,
                                 modifier = Modifier.weight(0.4f),
-                                textAlign = TextAlign.Center
+                                style = headStyle
+                            )
+                            Text(
+                                text = players[0].name,
+                                modifier = Modifier.weight(0.4f),
+                                style = headStyle
+                            )
+                            Text(
+                                text = players[1].name,
+                                modifier = Modifier.weight(0.4f),
+                                style = headStyle
+                            )
+                            Text(
+                                text = players[2].name,
+                                modifier = Modifier.weight(0.4f),
+                                style = headStyle
                             )
                         }
                     }
@@ -211,40 +230,51 @@ fun HistoryScreenContent(
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(vertical = 2.dp, horizontal = 12.dp),
+                                .padding(vertical = 2.dp, horizontal = 8.dp),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             // Date column
                             Text(
                                 text = formattedDate,
-                                fontSize = 16.sp,
+                                fontSize = 12.sp,
                                 color = MaterialTheme.colorScheme.secondaryContainer,
                                 modifier = Modifier.weight(1f)
                             )
 
-                            // Score columns
+                            // Wins columns
                             Text(
                                 text = score.p1Wins.toString(),
-                                fontSize = 20.sp,
-                                color = MaterialTheme.colorScheme.secondaryContainer,
-                                modifier = Modifier.weight(0.4f),
-                                textAlign = TextAlign.Center
+                                style = winsStyle,
+                                modifier = Modifier.weight(0.4f)
                             )
 
                             Text(
                                 text = score.p2Wins.toString(),
-                                fontSize = 20.sp,
-                                color = MaterialTheme.colorScheme.secondaryContainer,
-                                modifier = Modifier.weight(0.4f),
-                                textAlign = TextAlign.Center
+                                style = winsStyle,
+                                modifier = Modifier.weight(0.4f)
                             )
 
                             Text(
                                 text = score.p3Wins.toString(),
-                                fontSize = 20.sp,
-                                color = MaterialTheme.colorScheme.secondaryContainer,
+                                style = winsStyle,
+                                modifier = Modifier.weight(0.4f)
+                            )
+                            Text(
+                                text = score.p1Points.toString(),
+                                style = pointsStyle,
+                                modifier = Modifier.weight(0.4f)
+                            )
+
+                            Text(
+                                text = score.p2Points.toString(),
+                                style = pointsStyle,
+                                modifier = Modifier.weight(0.4f)
+                            )
+
+                            Text(
+                                text = score.p3Points.toString(),
+                                style = pointsStyle,
                                 modifier = Modifier.weight(0.4f),
-                                textAlign = TextAlign.Center
                             )
                         }
                     }

@@ -147,7 +147,7 @@ fun HomeScreenContent(
                         }
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
-                            text = score.total.toString(),
+                            text = score.points.toString(),
                             fontSize = 36.sp,
                             color = MaterialTheme.colorScheme.secondaryContainer
                         )
@@ -250,21 +250,21 @@ fun HomeScreenContent(
                             0 -> {
                                 newScore = Score(
                                     players[0].name,
-                                    players[0].total + lossLeft.toInt() + lossRight.toInt(),
+                                    players[0].points + lossLeft.toInt() + lossRight.toInt(),
                                     players[0].wins + 1
                                 )
                                 viewModel.updateScore(0, newScore)
 
                                 newScore = Score(
                                     players[1].name,
-                                    players[1].total - lossLeft.toInt(),
+                                    players[1].points - lossLeft.toInt(),
                                     players[1].wins
                                 )
                                 viewModel.updateScore(1, newScore)
 
                                 newScore = Score(
                                     players[2].name,
-                                    players[2].total - lossRight.toInt(),
+                                    players[2].points - lossRight.toInt(),
                                     players[2].wins
                                 )
                                 viewModel.updateScore(2, newScore)
@@ -274,21 +274,21 @@ fun HomeScreenContent(
                             1 -> {
                                 newScore = Score(
                                     players[0].name,
-                                    players[0].total - lossLeft.toInt(),
+                                    players[0].points - lossLeft.toInt(),
                                     players[0].wins
                                 )
                                 viewModel.updateScore(0, newScore)
 
                                 newScore = Score(
                                     players[1].name,
-                                    players[1].total + lossLeft.toInt() + lossRight.toInt(),
+                                    players[1].points + lossLeft.toInt() + lossRight.toInt(),
                                     players[1].wins + 1
                                 )
                                 viewModel.updateScore(1, newScore)
 
                                 newScore = Score(
                                     players[2].name,
-                                    players[2].total - lossRight.toInt(),
+                                    players[2].points - lossRight.toInt(),
                                     players[2].wins
                                 )
                                 viewModel.updateScore(2, newScore)
@@ -297,21 +297,21 @@ fun HomeScreenContent(
                             2 -> {
                                 newScore = Score(
                                     players[0].name,
-                                    players[0].total - lossLeft.toInt(),
+                                    players[0].points - lossLeft.toInt(),
                                     players[0].wins
                                 )
                                 viewModel.updateScore(0, newScore)
 
                                 newScore = Score(
                                     players[1].name,
-                                    players[1].total - lossRight.toInt(),
+                                    players[1].points - lossRight.toInt(),
                                     players[1].wins
                                 )
                                 viewModel.updateScore(1, newScore)
 
                                 newScore = Score(
                                     players[2].name,
-                                    players[2].total + lossLeft.toInt() + lossRight.toInt(),
+                                    players[2].points + lossLeft.toInt() + lossRight.toInt(),
                                     players[2].wins + 1
                                 )
                                 viewModel.updateScore(2, newScore)
@@ -329,8 +329,8 @@ fun HomeScreenContent(
 
                 ) {
                     Text(
-                        text = "Save Scores",
-                        fontSize = 18.sp
+                        text = "Save Results",
+                                fontSize = 18.sp
                     )
                 }
             }
@@ -353,21 +353,21 @@ fun HomeScreenContent(
                                 prevScore.winner = 3
                                 newScore = Score(
                                     players[0].name,
-                                    players[0].total - prevScore.leftScore - prevScore.rightScore,
+                                    players[0].points - prevScore.leftScore - prevScore.rightScore,
                                     players[0].wins - 1
                                 )
                                 viewModel.updateScore(0, newScore)
 
                                 newScore = Score(
                                     players[1].name,
-                                    players[1].total + prevScore.leftScore,
+                                    players[1].points + prevScore.leftScore,
                                     players[1].wins
                                 )
                                 viewModel.updateScore(1, newScore)
 
                                 newScore = Score(
                                     players[2].name,
-                                    players[2].total + prevScore.rightScore,
+                                    players[2].points + prevScore.rightScore,
                                     players[2].wins
                                 )
                                 viewModel.updateScore(2, newScore)
@@ -378,21 +378,21 @@ fun HomeScreenContent(
                                 prevScore.winner = 3
                                 newScore = Score(
                                     players[0].name,
-                                    players[0].total + prevScore.leftScore,
+                                    players[0].points + prevScore.leftScore,
                                     players[0].wins
                                 )
                                 viewModel.updateScore(0, newScore)
 
                                 newScore = Score(
                                     players[1].name,
-                                    players[1].total - prevScore.leftScore - prevScore.rightScore,
+                                    players[1].points - prevScore.leftScore - prevScore.rightScore,
                                     players[1].wins - 1
                                 )
                                 viewModel.updateScore(1, newScore)
 
                                 newScore = Score(
                                     players[2].name,
-                                    players[2].total + prevScore.rightScore,
+                                    players[2].points + prevScore.rightScore,
                                     players[2].wins
                                 )
                                 viewModel.updateScore(2, newScore)
@@ -402,21 +402,21 @@ fun HomeScreenContent(
                                 prevScore.winner = 3
                                 newScore = Score(
                                     players[0].name,
-                                    players[0].total + prevScore.leftScore,
+                                    players[0].points + prevScore.leftScore,
                                     players[0].wins
                                 )
                                 viewModel.updateScore(0, newScore)
 
                                 newScore = Score(
                                     players[1].name,
-                                    players[1].total + prevScore.rightScore,
+                                    players[1].points + prevScore.rightScore,
                                     players[1].wins
                                 )
                                 viewModel.updateScore(1, newScore)
 
                                 newScore = Score(
                                     players[2].name,
-                                    players[2].total - prevScore.leftScore - prevScore.rightScore,
+                                    players[2].points - prevScore.leftScore - prevScore.rightScore,
                                     players[2].wins - 1
                                 )
                                 viewModel.updateScore(2, newScore)
