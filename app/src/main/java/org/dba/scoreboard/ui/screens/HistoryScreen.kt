@@ -115,7 +115,7 @@ fun HistoryScreenContent(
                         )
                         {
                             Image(
-                                painter = painterResource(id = resourceId as Int),
+                                painter = painterResource(id = resourceId),
                                 contentDescription = null,
                                 modifier = Modifier.size(72.dp)
                             )
