@@ -138,7 +138,7 @@ fun HomeScreenContent(
                         ) {
                             Text(
                                 text = score.name,
-                                fontSize = 24.sp,
+                                style = MaterialTheme.typography.labelLarge,
                             )
                         }
                         Spacer(modifier = Modifier.height(4.dp))
@@ -443,7 +443,9 @@ fun HomeScreenContent(
                     ),
                     onClick = onNavigateToDetails
                 ) {
-                    Text("Go to History")
+                    Text(
+                        text = "History",
+                        style = MaterialTheme.typography.labelMedium)
                 }
             }
         }

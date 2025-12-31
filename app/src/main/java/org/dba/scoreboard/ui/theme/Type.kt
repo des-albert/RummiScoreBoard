@@ -3,8 +3,10 @@ package org.dba.scoreboard.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.googlefonts.Font
 import androidx.compose.ui.text.googlefonts.GoogleFont
+import androidx.compose.ui.unit.sp
 
 import org.dba.scoreboard.R
 
@@ -23,7 +25,7 @@ val bodyFontFamily = FontFamily(
 
 val displayFontFamily = FontFamily(
   Font(
-    googleFont = GoogleFont("Orbitron"),
+    googleFont = GoogleFont("Architects Daughter"),
     fontProvider = provider,
   )
 )
@@ -43,7 +45,7 @@ val AppTypography = Typography(
   bodyLarge = baseline.bodyLarge.copy(fontFamily = bodyFontFamily),
   bodyMedium = baseline.bodyMedium.copy(fontFamily = bodyFontFamily),
   bodySmall = baseline.bodySmall.copy(fontFamily = bodyFontFamily),
-  labelLarge = baseline.labelLarge.copy(fontFamily = bodyFontFamily),
-  labelMedium = baseline.labelMedium.copy(fontFamily = bodyFontFamily),
-  labelSmall = baseline.labelSmall.copy(fontFamily = bodyFontFamily),
+  labelLarge = baseline.labelLarge.copy(fontFamily = displayFontFamily, fontSize = 20.sp, fontWeight = FontWeight.Bold),
+  labelMedium = baseline.labelMedium.copy(fontFamily = displayFontFamily,fontSize = 16.sp, fontWeight = FontWeight.Bold),
+  labelSmall = baseline.labelSmall.copy(fontFamily = displayFontFamily, fontSize = 12.sp),
 )

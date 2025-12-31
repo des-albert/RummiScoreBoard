@@ -139,7 +139,7 @@ fun HistoryScreenContent(
                 onClick = onNavigateBack
 
             ) {
-                Text("Go to Home")
+                Text("Home")
             }
         }
 
