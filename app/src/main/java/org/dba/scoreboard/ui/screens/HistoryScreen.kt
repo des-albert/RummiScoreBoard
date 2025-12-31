@@ -16,7 +16,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
+import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -47,15 +48,16 @@ fun HistoryScreenContent(
     modifier: Modifier = Modifier,
 
 ) {
+    val players = viewModel.players
     val imageMap = mapOf(
-        "DB" to R.drawable.db,
-        "Bo" to R.drawable.bo,
-        "Steve" to R.drawable.steve
+        players[0].name to R.drawable.player0,
+        players[1].name to R.drawable.player1,
+        players[2].name to R.drawable.player2
     )
     val scores by viewModel.allScores.collectAsState(initial = emptyList())
     val totals by viewModel.playerTotals.collectAsState(initial = PlayerTotals(0, 0, 0))
 
-    val players = viewModel.players
+
 
     val simpleDateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
 
@@ -94,7 +96,7 @@ fun HistoryScreenContent(
         }
         Spacer(modifier = Modifier.height(32.dp))
 
-        val wins  = listOf(totals.p1Total, totals.p2Total, totals.p3Total)
+        val wins = listOf(totals.p1Total, totals.p2Total, totals.p3Total)
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
@@ -143,106 +145,109 @@ fun HistoryScreenContent(
                 onClick = onNavigateBack
 
             ) {
-                Text("Home")
-                Spacer(Modifier.width(8.dp))
                 Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBackIos,
                     contentDescription = "Arrow"
                 )
-
+                Spacer(Modifier.width(8.dp))
+                Text("Home")
             }
         }
 
+
+        // Score History
         Spacer(modifier = Modifier.height(24.dp))
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.5f)   // bottom half of the screen
-        ) {
-
-            LazyColumn(
+        if (scores.isNotEmpty()) {
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .fillMaxHeight(0.5f)   // bottom half of the screen
             ) {
-                item {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 4.dp, horizontal = 12.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Text(
-                            text = "Date",
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier.weight(1f)
-                        )
-                        Text(
-                            text = players[0].name,
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier.weight(0.4f),
-                            textAlign = TextAlign.Center
-                        )
-                        Text(
-                            text = players[1].name,
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier.weight(0.4f),
-                            textAlign = TextAlign.Center
-                        )
-                        Text(
-                            text = players[2].name,
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier.weight(0.4f),
-                            textAlign = TextAlign.Center
-                        )
+
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    item {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 4.dp, horizontal = 12.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                text = "Date",
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.weight(1f)
+                            )
+                            Text(
+                                text = players[0].name,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.weight(0.4f),
+                                textAlign = TextAlign.Center
+                            )
+                            Text(
+                                text = players[1].name,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.weight(0.4f),
+                                textAlign = TextAlign.Center
+                            )
+                            Text(
+                                text = players[2].name,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.weight(0.4f),
+                                textAlign = TextAlign.Center
+                            )
+                        }
                     }
-                }
 
-                items(scores) { score ->
-                    val formattedDate = simpleDateFormat.format(score.timestamp)
+                    items(scores) { score ->
+                        val formattedDate = simpleDateFormat.format(score.timestamp)
 
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 2.dp, horizontal = 12.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        // Date column
-                        Text(
-                            text = formattedDate,
-                            fontSize = 16.sp,
-                            color = MaterialTheme.colorScheme.secondaryContainer,
-                            modifier = Modifier.weight(1f)
-                        )
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 2.dp, horizontal = 12.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            // Date column
+                            Text(
+                                text = formattedDate,
+                                fontSize = 16.sp,
+                                color = MaterialTheme.colorScheme.secondaryContainer,
+                                modifier = Modifier.weight(1f)
+                            )
 
-                        // Score columns
-                        Text(
-                            text = score.p1Wins.toString(),
-                            fontSize = 20.sp,
-                            color = MaterialTheme.colorScheme.secondaryContainer,
-                            modifier = Modifier.weight(0.4f),
-                            textAlign = TextAlign.Center
-                        )
+                            // Score columns
+                            Text(
+                                text = score.p1Wins.toString(),
+                                fontSize = 20.sp,
+                                color = MaterialTheme.colorScheme.secondaryContainer,
+                                modifier = Modifier.weight(0.4f),
+                                textAlign = TextAlign.Center
+                            )
 
-                        Text(
-                            text = score.p2Wins.toString(),
-                            fontSize = 20.sp,
-                            color = MaterialTheme.colorScheme.secondaryContainer,
-                            modifier = Modifier.weight(0.4f),
-                            textAlign = TextAlign.Center
-                        )
+                            Text(
+                                text = score.p2Wins.toString(),
+                                fontSize = 20.sp,
+                                color = MaterialTheme.colorScheme.secondaryContainer,
+                                modifier = Modifier.weight(0.4f),
+                                textAlign = TextAlign.Center
+                            )
 
-                        Text(
-                            text = score.p3Wins.toString(),
-                            fontSize = 20.sp,
-                            color = MaterialTheme.colorScheme.secondaryContainer,
-                            modifier = Modifier.weight(0.4f),
-                            textAlign = TextAlign.Center
-                        )
+                            Text(
+                                text = score.p3Wins.toString(),
+                                fontSize = 20.sp,
+                                color = MaterialTheme.colorScheme.secondaryContainer,
+                                modifier = Modifier.weight(0.4f),
+                                textAlign = TextAlign.Center
+                            )
+                        }
                     }
                 }
             }

@@ -14,8 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
@@ -48,13 +47,14 @@ fun HomeScreenContent(
     modifier: Modifier = Modifier,
 
     ) {
+    val players = viewModel.players
     val imageMap = mapOf(
-        "DB" to R.drawable.db,
-        "Bo" to R.drawable.bo,
-        "Steve" to R.drawable.steve
+        players[0].name to R.drawable.player0,
+        players[1].name to R.drawable.player1,
+        players[2].name to R.drawable.player2
     )
     var inputVisible by remember { mutableStateOf(false) }
-    val players = viewModel.players
+
     var winner by remember { mutableIntStateOf(0) }
     var placeLeft by remember { mutableStateOf("") }
     var placeRight by remember { mutableStateOf("") }
@@ -249,21 +249,21 @@ fun HomeScreenContent(
                         when (winner) {
                             0 -> {
                                 newScore = Score(
-                                    "DB",
+                                    players[0].name,
                                     players[0].total + lossLeft.toInt() + lossRight.toInt(),
                                     players[0].wins + 1
                                 )
                                 viewModel.updateScore(0, newScore)
 
                                 newScore = Score(
-                                    "Bo",
+                                    players[1].name,
                                     players[1].total - lossLeft.toInt(),
                                     players[1].wins
                                 )
                                 viewModel.updateScore(1, newScore)
 
                                 newScore = Score(
-                                    "Steve",
+                                    players[2].name,
                                     players[2].total - lossRight.toInt(),
                                     players[2].wins
                                 )
@@ -273,21 +273,21 @@ fun HomeScreenContent(
 
                             1 -> {
                                 newScore = Score(
-                                    "DB",
+                                    players[0].name,
                                     players[0].total - lossLeft.toInt(),
                                     players[0].wins
                                 )
                                 viewModel.updateScore(0, newScore)
 
                                 newScore = Score(
-                                    "Bo",
+                                    players[1].name,
                                     players[1].total + lossLeft.toInt() + lossRight.toInt(),
                                     players[1].wins + 1
                                 )
                                 viewModel.updateScore(1, newScore)
 
                                 newScore = Score(
-                                    "Steve",
+                                    players[2].name,
                                     players[2].total - lossRight.toInt(),
                                     players[2].wins
                                 )
@@ -296,21 +296,21 @@ fun HomeScreenContent(
 
                             2 -> {
                                 newScore = Score(
-                                    "DB",
+                                    players[0].name,
                                     players[0].total - lossLeft.toInt(),
                                     players[0].wins
                                 )
                                 viewModel.updateScore(0, newScore)
 
                                 newScore = Score(
-                                    "Bo",
+                                    players[1].name,
                                     players[1].total - lossRight.toInt(),
                                     players[1].wins
                                 )
                                 viewModel.updateScore(1, newScore)
 
                                 newScore = Score(
-                                    "Steve",
+                                    players[2].name,
                                     players[2].total + lossLeft.toInt() + lossRight.toInt(),
                                     players[2].wins + 1
                                 )
@@ -352,21 +352,21 @@ fun HomeScreenContent(
                                 prevScore.numberGames -= 1
                                 prevScore.winner = 3
                                 newScore = Score(
-                                    "DB",
+                                    players[0].name,
                                     players[0].total - prevScore.leftScore - prevScore.rightScore,
                                     players[0].wins - 1
                                 )
                                 viewModel.updateScore(0, newScore)
 
                                 newScore = Score(
-                                    "Bo",
+                                    players[1].name,
                                     players[1].total + prevScore.leftScore,
                                     players[1].wins
                                 )
                                 viewModel.updateScore(1, newScore)
 
                                 newScore = Score(
-                                    "Steve",
+                                    players[2].name,
                                     players[2].total + prevScore.rightScore,
                                     players[2].wins
                                 )
@@ -377,21 +377,21 @@ fun HomeScreenContent(
                                 prevScore.numberGames -= 1
                                 prevScore.winner = 3
                                 newScore = Score(
-                                    "DB",
+                                    players[0].name,
                                     players[0].total + prevScore.leftScore,
                                     players[0].wins
                                 )
                                 viewModel.updateScore(0, newScore)
 
                                 newScore = Score(
-                                    "Bo",
+                                    players[1].name,
                                     players[1].total - prevScore.leftScore - prevScore.rightScore,
                                     players[1].wins - 1
                                 )
                                 viewModel.updateScore(1, newScore)
 
                                 newScore = Score(
-                                    "Steve",
+                                    players[2].name,
                                     players[2].total + prevScore.rightScore,
                                     players[2].wins
                                 )
@@ -401,21 +401,21 @@ fun HomeScreenContent(
                                 prevScore.numberGames -= 1
                                 prevScore.winner = 3
                                 newScore = Score(
-                                    "DB",
+                                    players[0].name,
                                     players[0].total + prevScore.leftScore,
                                     players[0].wins
                                 )
                                 viewModel.updateScore(0, newScore)
 
                                 newScore = Score(
-                                    "Bo",
+                                    players[1].name,
                                     players[1].total + prevScore.rightScore,
                                     players[1].wins
                                 )
                                 viewModel.updateScore(1, newScore)
 
                                 newScore = Score(
-                                    "Steve",
+                                    players[2].name,
                                     players[2].total - prevScore.leftScore - prevScore.rightScore,
                                     players[2].wins - 1
                                 )
@@ -450,8 +450,9 @@ fun HomeScreenContent(
                     Text(
                         text = "History",
                         style = MaterialTheme.typography.labelMedium)
+                    Spacer(Modifier.width(8.dp))
                     Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                        imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
                         contentDescription = "Arrow"
                     )
 
