@@ -25,6 +25,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
+import kotlinx.serialization.Serializable
 import org.dba.scoreboard.ui.screens.HistoryScreenContent
 import org.dba.scoreboard.ui.screens.HomeScreenContent
 import org.dba.scoreboard.ui.theme.ScoreBoardTheme
@@ -76,8 +77,11 @@ fun TopBar() {
 }
 
 
+@Serializable
 sealed class Screen(val route: String) {
+    @Serializable
     object Home : Screen("home")
+    @Serializable
     object History : Screen("history")
 }
 
