@@ -80,23 +80,28 @@ fun HistoryScreenContent(
         }
 
         Spacer(modifier = Modifier.height(16.dp))
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
             Button(
                 colors = ButtonDefaults.elevatedButtonColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer, // Background color
-                    contentColor = MaterialTheme.colorScheme.error
+                    containerColor = MaterialTheme.colorScheme.secondary, // Background color
+                    contentColor = MaterialTheme.colorScheme.onPrimary
                 ),
-                onClick = {
-                    viewModel.saveScores(players[0].wins, players[1].wins, players[2].wins,
-                        players[0].points, players[1].points, players[2].points)
-                }
+                onClick = onNavigateBack
+
             ) {
-                Text("Save Results")
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBackIos,
+                    contentDescription = "Arrow"
+                )
+                Spacer(Modifier.width(8.dp))
+                Text("Home")
             }
         }
+
         Spacer(modifier = Modifier.height(32.dp))
 
         val wins = listOf(totals.w1Total, totals.w2Total, totals.w3Total)
@@ -143,6 +148,8 @@ fun HistoryScreenContent(
 
         }
 
+        Spacer(modifier = Modifier.height(16.dp))
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
@@ -152,15 +159,12 @@ fun HistoryScreenContent(
                     containerColor = MaterialTheme.colorScheme.primaryContainer, // Background color
                     contentColor = MaterialTheme.colorScheme.error
                 ),
-                onClick = onNavigateBack
-
+                onClick = {
+                    viewModel.saveScores(players[0].wins, players[1].wins, players[2].wins,
+                        players[0].points, players[1].points, players[2].points)
+                }
             ) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBackIos,
-                    contentDescription = "Arrow"
-                )
-                Spacer(Modifier.width(8.dp))
-                Text("Home")
+                Text("Save Results")
             }
         }
 

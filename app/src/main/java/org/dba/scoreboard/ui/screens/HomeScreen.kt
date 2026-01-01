@@ -77,7 +77,32 @@ fun HomeScreenContent(
                 text = "Home"
             )
         }
-        Spacer(modifier = Modifier.height(48.dp))
+        Spacer(modifier = Modifier.height(18.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Button(
+                colors = ButtonDefaults.elevatedButtonColors(
+                    containerColor = MaterialTheme.colorScheme.secondary, // Background color
+                    contentColor = MaterialTheme.colorScheme.onPrimary
+                ),
+                onClick = onNavigateToDetails
+            ) {
+                Text(
+                    text = "History",
+                    style = MaterialTheme.typography.labelMedium)
+                Spacer(Modifier.width(8.dp))
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
+                    contentDescription = "Arrow"
+                )
+
+            }
+        }
+        Spacer(modifier = Modifier.height(24.dp))
+
         if (prevScore.numberGames > 0) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -431,31 +456,6 @@ fun HomeScreenContent(
                         text = "Undo",
                         fontSize = 18.sp
                     )
-                }
-            }
-
-            Spacer(modifier = Modifier.height(25.dp))
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Button(
-                    colors = ButtonDefaults.elevatedButtonColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer, // Background color
-                        contentColor = MaterialTheme.colorScheme.error
-                    ),
-                    onClick = onNavigateToDetails
-                ) {
-                    Text(
-                        text = "History",
-                        style = MaterialTheme.typography.labelMedium)
-                    Spacer(Modifier.width(8.dp))
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
-                        contentDescription = "Arrow"
-                    )
-
                 }
             }
         }
